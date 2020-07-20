@@ -26,7 +26,7 @@ function show_maze(maze)
   hold off;
   fig.Colormap = gray;
   % title (direction to user)
-  fig.Children.Title.String = 'Move (Arrow keys), show answer (g), quit (q)';
+  fig.Children.Title.String = 'Move (Arrowkeys), show answer (g), save as png (s), quit (q)';
   fig.Children.Title.FontSize = 30;
   % set unity aspect ratio
   fig.Children.DataAspectRatio = [1 1 1];
@@ -78,6 +78,9 @@ function keyhandler(handle, event)
       if maze(cursor(2)+1, cursor(1)) == 1 && not(cleared) && not(giveup)
         cursor(2) = max([cursor(2)+1 1]);
       end
+    % s: save as figure
+    case 's'
+      save_maze(maze);
     % g: giveup
     case 'g'
       giveup = true;
@@ -110,7 +113,6 @@ function keyhandler(handle, event)
     fig.Children.Title.String = 'clear (press q to close)';
   elseif giveup
     fig.Children.Title.String = 'answer (press q to close)';
-  else
   end
   % reset updated data in this handler
   setappdata(0, 'cursor', cursor);
@@ -132,6 +134,14 @@ end
 
 function show_st_gl(st_gl)
   scatter(st_gl(1, :), st_gl(2, :), 60, 'filled', 'MarkerFaceColor', '#0000FF');
+  return;
+end
+
+function save_maze(maze)
+  [height width] = size(maze);
+  disp('saving as maze.png ...');
+  imwrite(maze, 'maze.png');
+  disp('saved');
   return;
 end
 
