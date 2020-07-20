@@ -1,5 +1,16 @@
 function show_maze(ny, nx, maze)
+  %SHOW_MAZE Visualize a maze, and allow user to solve it
+  %  show_maze(ny, nx, maze) displays a figure of a given maze, whose size is "ny" by "nx".
+  %  This function assumes the start is left bottom, while the goal right top.
+  %  USER INPUT
+  %  This function allows some user inputs as follows
+  %    Arrow keys: move the cursor (red color) to the desired direction
+  %    "g"       : give up and show the answer
+  %    "q"       : quit the game
+
+  % intial cursor position
   cursor = [2 2];
+  % start and goal
   st_gl  = [[2 nx-1]; [2 ny-1]];
   x = linspace(1, nx, nx);
   y = linspace(1, ny, ny);
