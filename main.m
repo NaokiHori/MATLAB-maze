@@ -1,7 +1,7 @@
 clear all;
 
-height = 51;
-width  = 91;
+height = 31;
+width  = 61;
 
 maze = create_maze(height, width, 100);
 
