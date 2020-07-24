@@ -11,7 +11,7 @@ function show_maze(maze)
   %    otherwise ignored
 
   % get size of the maze
-  [height width] = size(maze);
+  [height, width] = size(maze);
   % intial cursor position
   cursor = [2 2];
   % start and goal
@@ -26,7 +26,7 @@ function show_maze(maze)
   hold off;
   fig.Colormap = gray;
   % title (direction to user)
-  fig.Children.Title.String = 'Move (Arrowkeys), show answer (g), save as png (s), quit (q)';
+  fig.Children.Title.String = 'Move (Arrowkeys), show answer (g), quit (q)';
   fig.Children.Title.FontSize = 30;
   % set unity aspect ratio
   fig.Children.DataAspectRatio = [1 1 1];
@@ -54,7 +54,7 @@ function keyhandler(handle, event)
   st_gl   = getappdata(0, 'st_gl');
   cleared = getappdata(0, 'cleared');
   giveup  = getappdata(0, 'giveup');
-  [height width] = size(maze);
+  [height, width] = size(maze);
   % check user input from keyboard
   switch event.Key
     % for arrow keys, the cursor motion should be prohibited
@@ -78,9 +78,6 @@ function keyhandler(handle, event)
       if maze(cursor(2)+1, cursor(1)) == 1 && not(cleared) && not(giveup)
         cursor(2) = max([cursor(2)+1 1]);
       end
-    % s: save as figure
-    case 's'
-      save_maze(maze);
     % g: giveup
     case 'g'
       giveup = true;
@@ -99,7 +96,7 @@ function keyhandler(handle, event)
   show_maze_field(maze);
   if giveup
     % if give-uped, show the answer instead of the cursor position and start/goal
-    [ansx ansy] = solve_maze(maze);
+    [ansx, ansy] = solve_maze(maze);
     scatter(ansx, ansy, 60, 'filled', 'MarkerFaceColor', '#33AA00');
   else
     % show cursor and start/goal
@@ -122,7 +119,7 @@ function keyhandler(handle, event)
 end
 
 function show_maze_field(maze)
-  [height width] = size(maze);
+  [height, width] = size(maze);
   imagesc(linspace(1, width, width), linspace(1, height, height), maze, [0 1]);
   return;
 end
@@ -134,14 +131,6 @@ end
 
 function show_st_gl(st_gl)
   scatter(st_gl(1, :), st_gl(2, :), 60, 'filled', 'MarkerFaceColor', '#0000FF');
-  return;
-end
-
-function save_maze(maze)
-  [height width] = size(maze);
-  disp('saving as maze.png ...');
-  imwrite(maze, 'maze.png');
-  disp('saved');
   return;
 end
 

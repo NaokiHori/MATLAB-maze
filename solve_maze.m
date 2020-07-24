@@ -5,7 +5,7 @@ function [ansx, ansy] = solve_maze(maze)
   %  So assume the point is also a part of wall.
   %  Repeat this procedure.
   %  Return the answer x/y points
-  [height width] = size(maze);
+  [height, width] = size(maze);
   while true
     updated = false;
     % check all points

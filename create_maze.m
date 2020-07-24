@@ -35,19 +35,19 @@ function [height, width] = sanitize_input(height, width)
   % 1. greater than or equal to 5
   % 2. odd numbers
   if height < 5
-    disp(sprintf('The input parameter "height" is smaller than 5 (%d), set to 5', height));
+    fprintf('The input parameter "height" is smaller than 5 (%d), set to 5\n', height);
     height = 5;
   end
   if width < 5
-    disp(sprintf('The input parameter "width" is smaller than 5 (%d), set to 5', width));
+    fprintf('The input parameter "width" is smaller than 5 (%d), set to 5\n', width);
     width = 5;
   end
   if mod(height, 2) ~= 1
-    disp(sprintf('The input parameter "height" is not an odd number (%d), set to %d', height, height+1));
+    fprintf('The input parameter "height" is not an odd number (%d), set to %d\n', height, height+1);
     height = height + 1;
   end
   if mod(width, 2) ~= 1
-    disp(sprintf('The input parameter "width" is not an odd number (%d), set to %d', width, width+1));
+    fprintf('The input parameter "width" is not an odd number (%d), set to %d\n', width, width+1);
     width = width + 1;
   end
   return;
@@ -62,7 +62,7 @@ function maze = digg_recursively(height, width, maze, i, j)
     for direction = directions
       % check whether we can move to the direction,
       % i.e. "digg"able
-      if is_diggable(height, width, direction, i, j, maze);
+      if is_diggable(height, width, direction, i, j, maze)
         % If so, dig to the direction, and update the current position
         [i, j, maze] = dig(direction, maze, i, j);
         updated = true;
